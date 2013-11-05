@@ -1,0 +1,10 @@
+plugins:
+    - Inflador\Plugin\InfladorPlugin\InfladorPlugin
+    - Inflador\Plugin\TwigPlugin\TwigPlugin
+
+inflador:
+    url:  http://domain.org
+    path: /
+    static:
+        extensions: [css, js, jpg, png, gif, ico]
+        explicits: [CNAME]

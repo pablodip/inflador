@@ -1,0 +1,18 @@
+services:
+    inflador.finder:
+        class: Inflador\Finder
+        arguments: [%source.dir%]
+
+    inflador.filesystem:
+        class: Inflador\Filesystem
+        arguments: [%source.dir%, %destination.dir%]
+
+    inflador.processor.static_files_by_extension:
+        class: Inflador\Plugin\InfladorPlugin\Processor\StaticFilesByExtensionProcessor
+        arguments: [@inflador.finder, @inflador.filesystem, %static.extensions%]
+        tags: [{name: 'inflador.processor'}]
+
+    inflador.processor.static_explicit_files:
+        class: Inflador\Plugin\InfladorPlugin\Processor\StaticExplicitFilesProcessor
+        arguments: [@inflador.filesystem, %static.explicits%]
+        tags: [{name: 'inflador.processor'}]
