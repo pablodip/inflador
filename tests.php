@@ -6,7 +6,7 @@ use Symfony\Component\Process\Process;
 
 $commands = array(
     'php vendor/bin/phpunit',
-    'php vendor/bin/behat'
+    'php vendor/bin/behat --format=progress --ansi'
 );
 
 exit(run_commands($commands));
