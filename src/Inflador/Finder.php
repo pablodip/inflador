@@ -7,14 +7,12 @@ use Symfony\Component\Finder\Finder as SymfonyFinder;
 class Finder
 {
     private $dir;
-    private $names;
-    private $notNames;
+    private $names = array();
+    private $notNames = array();
 
     public function __construct($dir)
     {
         $this->dir = $dir;
-        $this->names = array();
-        $this->notNames = array();
     }
 
     public function name($name)
@@ -50,24 +48,28 @@ class Finder
         $finder = new SymfonyFinder();
         $finder->in($this->dir);
 
-        foreach ($this->names as $name) {
-            $finder->name($name);
-        }
-
-        foreach ($this->notNames as $notName) {
-            $finder->notName($notName);
-        }
+        $this->finderPassValues($finder);
 
         return $finder;
     }
 
+    private function finderPassValues($finder)
+    {
+        \f\feach(function ($values, $function) use ($finder) {
+            \f\feach(array($finder, $function), $values);
+        }, $this->finderValuesToPass());
+    }
+
+    private function finderValuesToPass()
+    {
+        return array(
+            'name'    => $this->names,
+            'notName' => $this->notNames
+        );
+    }
+
     private function relativizeFiles($files)
     {
-        $relativized = array();
-        foreach ($files as $file) {
-            $relativized[] = $file->getRelativePathName();
-        }
-
-        return $relativized;
+        return \f\values(\f\map(\f\method('getRelativePathName'), $files));
     }
 }
